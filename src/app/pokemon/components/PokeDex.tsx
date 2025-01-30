@@ -98,7 +98,11 @@ export default function PokeDex({
           <FilteredPokemon />
         ) : (
           <>
-            <PokemonTable isLoading={isLoading} pokemonList={pokemonList} />
+            <PokemonTable
+              isLoading={isLoading}
+              pokemonList={pokemonList}
+              isFetchingNextPage={isFetchingNextPage}
+            />
             <LoadMore
               onLoadMore={fetchNextPage}
               hasNextPage={hasNextPage}

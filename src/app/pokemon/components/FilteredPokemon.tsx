@@ -68,7 +68,11 @@ export default function FilteredPokemon() {
 
   return (
     <div>
-      <PokemonTable isLoading={isLoading} pokemonList={pokemonList} />
+      <PokemonTable
+        isLoading={isLoading}
+        pokemonList={pokemonList}
+        isFetchingNextPage={isFetchingNextPage}
+      />
       <LoadMore
         onLoadMore={fetchNextPage}
         hasNextPage={hasNextPage}

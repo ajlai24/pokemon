@@ -28,11 +28,13 @@ const fetchPokemonDetails = async (url: string) => {
 export interface PokemonTableProps {
   isLoading: boolean;
   pokemonList: PokemonRowType[];
+  isFetchingNextPage: boolean;
 }
 
 export default function PokemonTable({
   isLoading,
   pokemonList,
+  isFetchingNextPage,
 }: PokemonTableProps) {
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const [selectedPokemonUrl, setSelectedPokemonUrl] = useState<string | null>(
@@ -96,24 +98,27 @@ export default function PokemonTable({
       ) : pokemonList.length === 0 ? (
         <div>0 Results</div>
       ) : (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>ID</TableHead>
-              <TableHead>Name</TableHead>
-            </TableRow>
-          </TableHeader>
+        <>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>ID</TableHead>
+                <TableHead>Name</TableHead>
+              </TableRow>
+            </TableHeader>
 
-          <TableBody>
-            {pokemonList.map((p: PokemonRowType) => (
-              <PokemonListItem
-                key={p.url}
-                pokemon={p}
-                onClick={() => handleDialogOpen(p.url)}
-              />
-            ))}
-          </TableBody>
-        </Table>
+            <TableBody>
+              {pokemonList.map((p: PokemonRowType) => (
+                <PokemonListItem
+                  key={p.url}
+                  pokemon={p}
+                  onClick={() => handleDialogOpen(p.url)}
+                />
+              ))}
+            </TableBody>
+          </Table>
+          {isFetchingNextPage && <div className="text-xs">loading...</div>}
+        </>
       )}
     </>
   );

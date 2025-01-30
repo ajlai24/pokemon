@@ -39,7 +39,6 @@ export default function PokemonSidebar({
         <SidebarGroup>
           <SidebarGroupContent>Search</SidebarGroupContent>
         </SidebarGroup>
-
         <SidebarGroup>
           <SidebarGroupLabel>Types</SidebarGroupLabel>
           <SidebarGroupContent>

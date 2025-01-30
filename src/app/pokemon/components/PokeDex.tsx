@@ -1,25 +1,38 @@
 "use client";
 
 import LoadMore from "@/components/LoadMore";
+import { useHasSelectedTypes } from "@/stores/useFilterStore";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { PokeAPI } from "pokeapi-types";
 import { fetchPokemon, fetchPokemonTypes } from "../services/pokemon";
 import { PokemonListResponse } from "../types";
+import FilteredPokemon from "./FilteredPokemon";
 import PokemonSidebar from "./PokemonSidebar";
 import PokemonTable from "./PokemonTable";
-import { useHasSelectedTypes } from "@/stores/useFilterStore";
-import FilteredPokemon from "./FilteredPokemon";
 
 interface PokeDexProps {
   initialPokemonData: PokemonListResponse;
   initialPokemonTypes: PokeAPI.PokemonType["type"][];
+  allPokemonNames: PokeAPI.NamedAPIResource["name"][];
 }
 
 export default function PokeDex({
   initialPokemonData,
   initialPokemonTypes,
+  allPokemonNames,
 }: PokeDexProps) {
   const hasSelectedTypes = useHasSelectedTypes();
+
+  const {
+    data: pokemonNames,
+    isLoading: isLoadingNames,
+    isError: isErrorNames,
+  } = useQuery({
+    queryKey: ["allPokemonNames"],
+    queryFn: () => allPokemonNames,
+    initialData: allPokemonNames,
+    staleTime: 1000 * 60 * 60, // Cache for 1 hour
+  });
 
   const {
     data: pokemonTypes,
@@ -76,6 +89,9 @@ export default function PokeDex({
         pokemonTypes={pokemonTypes}
         isLoadingTypes={isLoadingTypes}
         isErrorTypes={isErrorTypes}
+        pokemonNames={pokemonNames}
+        isLoadingNames={isLoadingNames}
+        isErrorNames={isErrorNames}
       />
       <div className="w-full p-2">
         {hasSelectedTypes ? (

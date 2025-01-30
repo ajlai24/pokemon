@@ -77,6 +77,7 @@ describe("PokeDex", () => {
     { name: "grass", url: "grassUrl" },
     { name: "poison", url: "poisonUrl" },
   ];
+  const mockAllPokemonNames = ["bulbasaur", "ivysaur", "vennusar"];
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -104,6 +105,7 @@ describe("PokeDex", () => {
       <PokeDex
         initialPokemonData={mockInitialPokemonData}
         initialPokemonTypes={mockInitialPokemonTypes}
+        allPokemonNames={mockAllPokemonNames}
       />
     );
 
@@ -135,6 +137,7 @@ describe("PokeDex", () => {
       <PokeDex
         initialPokemonData={mockInitialPokemonData}
         initialPokemonTypes={mockInitialPokemonTypes}
+        allPokemonNames={mockAllPokemonNames}
       />
     );
 
@@ -165,6 +168,7 @@ describe("PokeDex", () => {
       <PokeDex
         initialPokemonData={mockInitialPokemonData}
         initialPokemonTypes={mockInitialPokemonTypes}
+        allPokemonNames={mockAllPokemonNames}
       />
     );
 
@@ -193,6 +197,7 @@ describe("PokeDex", () => {
       <PokeDex
         initialPokemonData={mockInitialPokemonData}
         initialPokemonTypes={mockInitialPokemonTypes}
+        allPokemonNames={mockAllPokemonNames}
       />
     );
 
@@ -225,6 +230,7 @@ describe("PokeDex", () => {
       <PokeDex
         initialPokemonData={mockInitialPokemonData}
         initialPokemonTypes={mockInitialPokemonTypes}
+        allPokemonNames={mockAllPokemonNames}
       />
     );
 

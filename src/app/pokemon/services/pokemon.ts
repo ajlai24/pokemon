@@ -169,3 +169,24 @@ export const getPokemonDetails = async (
   }
   return await res.json();
 };
+
+/**
+ * Fetches all Pokemon names for searching as the API doesn't provide a good way to search
+ * @returns {Promise<string[]>} A promise that resolves to an array of Pokemon names (strings).
+ */
+export const fetchAllPokemonNames = async (): Promise<string[]> => {
+  const res = await fetch(
+    "https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0"
+  );
+  if (!res.ok) {
+    throw new Error("Failed to fetch Pokémon names");
+  }
+  const data = await res.json();
+
+  // Map results to list of names
+  const names = data.results.map(
+    (pokemon: PokeAPI.NamedAPIResource) => pokemon.name
+  );
+
+  return names;
+};

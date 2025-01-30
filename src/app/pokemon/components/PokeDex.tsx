@@ -1,23 +1,33 @@
 "use client";
 
 import LoadMore from "@/components/LoadMore";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-} from "@/components/ui/sidebar";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { fetchPokemon } from "../services/pokemon";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { PokeAPI } from "pokeapi-types";
+import { fetchPokemon, fetchPokemonTypes } from "../services/pokemon";
 import { PokemonListResponse } from "../types";
+import PokemonSidebar from "./PokemonSidebar";
 import PokemonTable from "./PokemonTable";
 
 interface PokeDexProps {
   initialPokemonData: PokemonListResponse;
+  initialPokemonTypes: PokeAPI.PokemonType["type"][];
 }
 
-export default function PokeDex({ initialPokemonData }: PokeDexProps) {
+export default function PokeDex({
+  initialPokemonData,
+  initialPokemonTypes,
+}: PokeDexProps) {
+  const {
+    data: pokemonTypes,
+    isLoading: isLoadingTypes,
+    isError: isErrorTypes,
+  } = useQuery({
+    queryKey: ["pokemonTypes"],
+    queryFn: fetchPokemonTypes,
+    initialData: initialPokemonTypes,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+
   const {
     data,
     fetchNextPage,
@@ -61,19 +71,11 @@ export default function PokeDex({ initialPokemonData }: PokeDexProps) {
 
   return (
     <>
-      <Sidebar variant="floating">
-        <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupContent>Search</SidebarGroupContent>
-          </SidebarGroup>
-
-          <SidebarGroup>
-            <SidebarGroupLabel>Types</SidebarGroupLabel>
-            <SidebarGroupContent>Filters</SidebarGroupContent>
-          </SidebarGroup>
-        </SidebarContent>
-      </Sidebar>
-
+      <PokemonSidebar
+        pokemonTypes={pokemonTypes}
+        isLoadingTypes={isLoadingTypes}
+        isErrorTypes={isErrorTypes}
+      />
       <div className="w-full p-2">
         <PokemonTable isLoading={isLoading} pokemonList={pokemonList} />
         <LoadMore

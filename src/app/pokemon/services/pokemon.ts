@@ -1,3 +1,4 @@
+import { PokeAPI } from "pokeapi-types";
 import { PokemonListResponse } from "../types";
 
 interface PokemonFetchFilters {
@@ -32,4 +33,19 @@ export const fetchPokemon = async (
   }));
 
   return { ...data, results };
+};
+
+/**
+ * Fetches all Pokemon types for filtering
+ * @returns {Promise<PokeAPI.PokemonType["type"][]>}  A promise that resolves to an array of Pokemon types
+ */
+export const fetchPokemonTypes = async (): Promise<
+  PokeAPI.PokemonType["type"][]
+> => {
+  const res = await fetch("https://pokeapi.co/api/v2/type/");
+  if (!res.ok) {
+    throw new Error("Failed to fetch Pokémon types");
+  }
+  const data = await res.json();
+  return data.results;
 };

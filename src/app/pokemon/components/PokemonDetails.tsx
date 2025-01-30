@@ -19,6 +19,8 @@ export default function PokemonDetails({ details }: PokemonDetailsProps) {
       <PokemonStatsTable id={id} weight={weight} height={height} />
       <PokemonMoves moves={moves} />
       <PokemonStatsDetails stats={stats} />
+      {/* Evolutions
+      Weaknesses */}
     </div>
   );
 }

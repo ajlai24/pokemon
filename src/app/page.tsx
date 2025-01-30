@@ -1,5 +1,5 @@
 import PokeDex from "./pokemon/components/PokeDex";
-import { fetchPokemon } from "./pokemon/services/pokemon";
+import { fetchPokemon, fetchPokemonTypes } from "./pokemon/services/pokemon";
 
 export default async function Home() {
   const filters = {
@@ -8,5 +8,12 @@ export default async function Home() {
   };
   const pokemonData = await fetchPokemon(filters);
 
-  return <PokeDex initialPokemonData={pokemonData} />;
+  const pokemonTypes = await fetchPokemonTypes();
+
+  return (
+    <PokeDex
+      initialPokemonData={pokemonData}
+      initialPokemonTypes={pokemonTypes}
+    />
+  );
 }

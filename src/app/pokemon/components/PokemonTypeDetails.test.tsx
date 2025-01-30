@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import { PokemonTypeDetails } from "./PokemonTypeDetails"; // Adjust path as needed
 import { PokeAPI } from "pokeapi-types";
+import PokemonTypeDetails from "./PokemonTypeDetails"; // Adjust path as needed
 
 jest.mock("@/components/ui/badge", () => ({
   Badge: ({ children }: { children: React.ReactNode }) => (

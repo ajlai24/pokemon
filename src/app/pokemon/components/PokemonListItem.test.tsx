@@ -1,7 +1,7 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { PokemonListItem } from "./PokemonListItem"; // Adjust import path as necessary
-import { PokemonRowType } from "../types";
 import { Table, TableBody } from "@/components/ui/table";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { PokemonRowType } from "../types";
+import PokemonListItem from "./PokemonListItem"; // Adjust import path as necessary
 
 const mockPokemon: PokemonRowType = {
   id: "1",

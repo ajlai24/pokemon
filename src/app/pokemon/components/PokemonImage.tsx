@@ -6,7 +6,7 @@ interface PokemonImageProps extends Omit<ImageProps, "src"> {
   className?: string;
 }
 
-export function PokemonImage({
+export default function PokemonImage({
   src,
   alt = "",
   width = 96,

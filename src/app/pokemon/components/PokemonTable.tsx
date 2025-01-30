@@ -15,9 +15,9 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { PokemonRowType } from "../types";
-import { PokemonImage } from "./PokemonImage";
-import { PokemonListItem } from "./PokemonListItem";
-import { PokemonDetails } from "./PokemonDetails";
+import PokemonDetails from "./PokemonDetails";
+import PokemonImage from "./PokemonImage";
+import PokemonListItem from "./PokemonListItem";
 
 const fetchPokemonDetails = async (url: string) => {
   const response = await fetch(url);

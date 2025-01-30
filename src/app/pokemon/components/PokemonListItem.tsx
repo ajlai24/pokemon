@@ -6,7 +6,10 @@ interface PokemonListItemProps {
   onClick: (url: string) => void;
 }
 
-export function PokemonListItem({ pokemon, onClick }: PokemonListItemProps) {
+export default function PokemonListItem({
+  pokemon,
+  onClick,
+}: PokemonListItemProps) {
   const { id, name, url } = pokemon;
 
   return (

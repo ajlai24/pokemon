@@ -7,7 +7,7 @@ interface PokemonDetailsProps {
   types: PokeAPI.PokemonType[];
 }
 
-export function PokemonTypeDetails({ types }: PokemonDetailsProps) {
+export default function PokemonTypeDetails({ types }: PokemonDetailsProps) {
   return (
     <div className="flex gap-1 items-center">
       <span className="text-xs">Type:</span>

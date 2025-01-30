@@ -43,7 +43,7 @@ export default function PokemonSidebar({
   };
 
   return (
-    <Sidebar variant="floating">
+    <Sidebar variant="floating" collapsible="none">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>

@@ -16,7 +16,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { PokemonRowType } from "../types";
 import PokemonDetails from "./PokemonDetails";
-import PokemonImage from "./PokemonImage";
 import PokemonListItem from "./PokemonListItem";
 
 const fetchPokemonDetails = async (url: string) => {
@@ -69,15 +68,7 @@ export default function PokemonTable({
       return <div>Failed to load Pokemon details</div>;
     }
     if (details) {
-      return (
-        <div>
-          <PokemonImage
-            src={details.sprites.front_default}
-            alt={details.name || ""}
-          />
-          <PokemonDetails details={details} />
-        </div>
-      );
+      return <PokemonDetails details={details} />;
     }
     return null;
   };

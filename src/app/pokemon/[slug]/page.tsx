@@ -1,5 +1,4 @@
 import PokemonDetails from "../components/PokemonDetails";
-import PokemonImage from "../components/PokemonImage";
 import { getPokemonDetails } from "../services/pokemon";
 
 export default async function PokemonPage({
@@ -25,12 +24,9 @@ export default async function PokemonPage({
     );
   }
 
-  const { name, sprites } = details;
   return (
-    <div className="container mx-auto h-screen p-8 flex flex-col">
-      <h2 className="text-lg capitalize text-center">{name}</h2>
-      <PokemonImage src={sprites.front_default} alt={name || ""} />
-      <PokemonDetails details={details} />
+    <div className="container mx-auto min-h-screen flex flex-col p-4">
+      <PokemonDetails details={details} showBackNav />
     </div>
   );
 }

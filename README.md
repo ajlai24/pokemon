@@ -1,8 +1,15 @@
 ## This is a Pokedex
 
+This app utilizes the PokeAPI to fetch and display Pokemon data, featuring infinite scroll pagination
+
+## Demo
+
+[https://pokemon-vert-zeta.vercel.app/](https://pokemon-vert-zeta.vercel.app/)
+
 ## App Directory structure
+
 ```
-app/ 
+app/
   components/          // Reusable components live here
     ui/                // This is where shadcn components get installed to
   feature_name/

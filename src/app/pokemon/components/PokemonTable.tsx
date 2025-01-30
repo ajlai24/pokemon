@@ -17,6 +17,7 @@ import { useState } from "react";
 import { PokemonRowType } from "../types";
 import { PokemonImage } from "./PokemonImage";
 import { PokemonListItem } from "./PokemonListItem";
+import { PokemonDetails } from "./PokemonDetails";
 
 const fetchPokemonDetails = async (url: string) => {
   const response = await fetch(url);
@@ -63,17 +64,18 @@ export default function PokemonTable({
       return <CenteredLoader />;
     }
     if (isErrorDetails) {
-      <div>Failed to load Pokémon details</div>;
+      return <div>Failed to load Pokémon details</div>;
     }
     if (details) {
-      <div>
-        <PokemonImage
-          src={details.sprites.front_default}
-          alt={details.name || ""}
-        />
-        {/* TODO */}
-        {/* <PokemonDetails details={details} /> */}
-      </div>;
+      return (
+        <div>
+          <PokemonImage
+            src={details.sprites.front_default}
+            alt={details.name || ""}
+          />
+          <PokemonDetails details={details} />
+        </div>
+      );
     }
     return null;
   };

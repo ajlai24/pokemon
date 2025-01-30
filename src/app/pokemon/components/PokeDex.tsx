@@ -7,6 +7,8 @@ import { fetchPokemon, fetchPokemonTypes } from "../services/pokemon";
 import { PokemonListResponse } from "../types";
 import PokemonSidebar from "./PokemonSidebar";
 import PokemonTable from "./PokemonTable";
+import { useHasSelectedTypes } from "@/stores/useFilterStore";
+import FilteredPokemon from "./FilteredPokemon";
 
 interface PokeDexProps {
   initialPokemonData: PokemonListResponse;
@@ -17,6 +19,8 @@ export default function PokeDex({
   initialPokemonData,
   initialPokemonTypes,
 }: PokeDexProps) {
+  const hasSelectedTypes = useHasSelectedTypes();
+
   const {
     data: pokemonTypes,
     isLoading: isLoadingTypes,
@@ -59,6 +63,7 @@ export default function PokeDex({
     getPreviousPageParam: (lastPage, allPages, lastPageParam) => {
       return lastPageParam === 0 ? undefined : lastPageParam - 1;
     },
+    enabled: hasSelectedTypes,
   });
 
   if (isError) return <div>Uh oh - something went wrong</div>;
@@ -77,12 +82,18 @@ export default function PokeDex({
         isErrorTypes={isErrorTypes}
       />
       <div className="w-full p-2">
-        <PokemonTable isLoading={isLoading} pokemonList={pokemonList} />
-        <LoadMore
-          onLoadMore={fetchNextPage}
-          hasNextPage={hasNextPage}
-          isFetchingNextPage={isFetchingNextPage}
-        />
+        {hasSelectedTypes ? (
+          <FilteredPokemon />
+        ) : (
+          <>
+            <PokemonTable isLoading={isLoading} pokemonList={pokemonList} />
+            <LoadMore
+              onLoadMore={fetchNextPage}
+              hasNextPage={hasNextPage}
+              isFetchingNextPage={isFetchingNextPage}
+            />
+          </>
+        )}
       </div>
     </>
   );

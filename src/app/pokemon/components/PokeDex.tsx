@@ -57,7 +57,7 @@ export default function PokeDex({
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
       const totalFetched = lastPage.results.length;
 
-      // If there are more Pokémon to fetch (more than the current fetched count), fetch the next page
+      // If there are more Pokemon to fetch (more than the current fetched count), fetch the next page
       return totalFetched < lastPage.count ? lastPageParam + 1 : undefined;
     },
     getPreviousPageParam: (lastPage, allPages, lastPageParam) => {
@@ -69,10 +69,6 @@ export default function PokeDex({
   if (isError) return <div>Uh oh - something went wrong</div>;
 
   const pokemonList = data?.pages.flatMap((page) => page.results) || [];
-
-  if (pokemonList.length === 0) {
-    return <div className="pt-4">0 Results</div>;
-  }
 
   return (
     <>

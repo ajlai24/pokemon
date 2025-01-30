@@ -23,7 +23,7 @@ export const fetchPokemon = async (
   );
 
   if (!res.ok) {
-    throw new Error("Failed to fetch Pokémon list");
+    throw new Error("Failed to fetch Pokemon list");
   }
 
   const data = await res.json();
@@ -46,7 +46,7 @@ export const fetchPokemonTypes = async (): Promise<
 > => {
   const res = await fetch("https://pokeapi.co/api/v2/type/");
   if (!res.ok) {
-    throw new Error("Failed to fetch Pokémon types");
+    throw new Error("Failed to fetch Pokemon types");
   }
   const data = await res.json();
   return data.results;
@@ -68,7 +68,7 @@ const fetchPokemonByType = async (
   );
   const data = await response.json();
 
-  // Extract the Pokémon from the type response
+  // Extract the Pokemon from the type response
   const pokemonList = data.pokemon.map(
     (entry: { pokemon: { name: string; url: string } }) => entry.pokemon
   );
@@ -115,14 +115,57 @@ export const getPokemonEvolutions = async (
 ): Promise<PokeAPI.EvolutionChain> => {
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${name}`);
   if (!res.ok) {
-    throw new Error("Failed to fetch Pokémon species details");
+    throw new Error("Failed to fetch Pokemon species details");
   }
   const speciesData = await res.json();
 
   const evolutionChainRes = await fetch(speciesData.evolution_chain.url);
   if (!evolutionChainRes.ok) {
-    throw new Error("Failed to fetch Pokémon evolution chain details");
+    throw new Error("Failed to fetch Pokemon evolution chain details");
   }
 
   return evolutionChainRes.json();
+};
+
+/**
+ * Get Pokemon weaknesses
+ * @param types
+ * @returns {Promise<string[]>} A promise that resolves an array of weaknesses by name
+ */
+export const getPokemonWeaknesses = async (
+  types: PokeAPI.PokemonType[]
+): Promise<string[]> => {
+  // Extract names from the types
+  const typeNames = types.map((type) => type.type.name);
+
+  const doubleDamageFrom = new Set<string>();
+
+  for (const type of typeNames) {
+    const typeRes = await fetch(`https://pokeapi.co/api/v2/type/${type}`);
+    if (!typeRes.ok) {
+      throw new Error(`Failed to fetch data for type: ${type}`);
+    }
+    const typeData = await typeRes.json();
+    typeData.damage_relations.double_damage_from.forEach(
+      (type: PokeAPI.NamedAPIResource) => {
+        doubleDamageFrom.add(type.name);
+      }
+    );
+  }
+  return Array.from(doubleDamageFrom);
+};
+
+/**
+ * Get specific Pokemon details by name
+ * @param name
+ * @returns {Promise<PokeAPI.Pokemon>} A promise that resolves to an object of Pokemon details
+ */
+export const getPokemonDetails = async (
+  name: string
+): Promise<PokeAPI.Pokemon> => {
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch Pokemon details");
+  }
+  return await res.json();
 };

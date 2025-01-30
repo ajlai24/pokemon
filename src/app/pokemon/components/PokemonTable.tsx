@@ -25,7 +25,7 @@ const fetchPokemonDetails = async (url: string) => {
   return data;
 };
 
-interface PokemonTableProps {
+export interface PokemonTableProps {
   isLoading: boolean;
   pokemonList: PokemonRowType[];
 }
@@ -64,7 +64,7 @@ export default function PokemonTable({
       return <CenteredLoader />;
     }
     if (isErrorDetails) {
-      return <div>Failed to load Pokémon details</div>;
+      return <div>Failed to load Pokemon details</div>;
     }
     if (details) {
       return (
@@ -93,6 +93,8 @@ export default function PokemonTable({
 
       {isLoading ? (
         <CenteredLoader />
+      ) : pokemonList.length === 0 ? (
+        <div>0 Results</div>
       ) : (
         <Table>
           <TableHeader>

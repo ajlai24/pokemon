@@ -6,6 +6,7 @@ import PokemonStatsDetails from "./PokemonStatsDetails";
 import PokemonStatsTable from "./PokemonStatsTable";
 import PokemonTypeDetails from "./PokemonTypeDetails";
 import PokemonEvolutions from "./PokemonEvolutions";
+import PokemonWeaknesses from "./PokemonWeaknesses";
 
 interface PokemonDetailsProps {
   details: PokeAPI.Pokemon;
@@ -21,7 +22,7 @@ export default function PokemonDetails({ details }: PokemonDetailsProps) {
       <PokemonMoves moves={moves} />
       <PokemonStatsDetails stats={stats} />
       <PokemonEvolutions name={name} />
-      {/* Weaknesses */}
+      <PokemonWeaknesses types={types} />
     </div>
   );
 }

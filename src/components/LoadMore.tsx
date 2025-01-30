@@ -1,7 +1,7 @@
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 
-interface LoadMoreProps {
+export interface LoadMoreProps {
   onLoadMore: () => void;
   hasNextPage: boolean;
   isFetchingNextPage: boolean;

@@ -87,7 +87,7 @@ export default function PokeDex({
 
   return (
     <>
-      {isMobile && <SidebarTrigger className="p-6" />}
+      {isMobile && <SidebarTrigger className="p-5 fixed" />}
       <PokemonSidebar
         pokemonTypes={pokemonTypes}
         isLoadingTypes={isLoadingTypes}
@@ -96,7 +96,7 @@ export default function PokeDex({
         isLoadingNames={isLoadingNames}
         isErrorNames={isErrorNames}
       />
-      <div className="w-full p-2">
+      <div className="w-full p-1 pl-11 md:pl-1">
         {hasSelectedTypes ? (
           <FilteredPokemon />
         ) : (

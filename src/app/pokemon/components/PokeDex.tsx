@@ -70,15 +70,13 @@ export default function PokeDex({
       pageParams: [0],
     },
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
-      const totalFetched = lastPage.results.length;
-
-      // If there are more Pokemon to fetch (more than the current fetched count), fetch the next page
+      const totalFetched = allPages.flatMap((page) => page.results).length;
       return totalFetched < lastPage.count ? lastPageParam + 1 : undefined;
     },
     getPreviousPageParam: (lastPage, allPages, lastPageParam) => {
       return lastPageParam === 0 ? undefined : lastPageParam - 1;
     },
-    enabled: hasSelectedTypes,
+    enabled: !hasSelectedTypes,
   });
 
   if (isError) return <div>Uh oh - something went wrong</div>;

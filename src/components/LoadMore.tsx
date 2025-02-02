@@ -14,11 +14,6 @@ export default function LoadMore({
 }: LoadMoreProps) {
   const { ref, inView } = useInView({
     triggerOnce: false,
-    onChange: (inView) => {
-      if (inView && hasNextPage && !isFetchingNextPage) {
-        onLoadMore();
-      }
-    },
   });
 
   useEffect(() => {
@@ -28,5 +23,9 @@ export default function LoadMore({
     }
   }, [inView, hasNextPage, isFetchingNextPage, onLoadMore]);
 
-  return <div ref={ref} className="h-16" />;
+  if (!hasNextPage) {
+    return null;
+  }
+
+  return <div ref={ref} className="h-8" />;
 }

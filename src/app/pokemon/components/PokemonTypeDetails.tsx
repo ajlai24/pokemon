@@ -10,10 +10,10 @@ interface PokemonDetailsProps {
 export default function PokemonTypeDetails({ types }: PokemonDetailsProps) {
   return (
     <div className="flex gap-1 items-center">
-      <span className="text-xs">Type:</span>
+      <span>Type:</span>
       {types.map(({ slot, type }) => (
         <div key={slot}>
-          <Badge>{type.name}</Badge>
+          <Badge className="capitalize">{type.name}</Badge>
         </div>
       ))}
     </div>

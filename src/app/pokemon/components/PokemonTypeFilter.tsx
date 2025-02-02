@@ -22,14 +22,14 @@ export default function PokemonTypeFilter({ types }: PokemonTypeFilterProps) {
       {types?.map(({ name }) => (
         <div key={name} className="flex items-center space-x-2 pb-2">
           <Checkbox
-            className="w-6 h-6 text-xl"
+            className="w-5 h-5"
             id={name}
             checked={selectedTypes?.[name] || false}
             onCheckedChange={() => handleCheckboxChange(name)}
           />
           <label
             htmlFor={name}
-            className="font-medium leading-none cursor-pointer capitalize"
+            className="text-xs leading-none cursor-pointer capitalize"
           >
             {name}
           </label>

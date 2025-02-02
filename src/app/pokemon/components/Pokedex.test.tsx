@@ -1,9 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import { render, RenderOptions, screen } from "@testing-library/react";
 import PokeDex from "./PokeDex";
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import { useHasSelectedTypes } from "@/stores/useFilterStore";
 import { LoadMoreProps } from "@/components/LoadMore";
 import { PokemonTableProps } from "./PokemonTable";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 // Mock components
 jest.mock("@/components/LoadMore", () => ({
@@ -18,6 +19,10 @@ jest.mock("@/components/LoadMore", () => ({
       </button>
     </div>
   ),
+}));
+
+jest.mock("lucide-react", () => ({
+  LucideIcons: jest.fn(),
 }));
 
 jest.mock("@/components/CenteredLoader", () => ({
@@ -77,7 +82,23 @@ describe("PokeDex", () => {
     { name: "grass", url: "grassUrl" },
     { name: "poison", url: "poisonUrl" },
   ];
-  const mockAllPokemonNames = ["bulbasaur", "ivysaur", "vennusar"];
+  const mockAllPokemonNames = ["bulbasaur", "ivysaur", "venusaur"];
+
+  const renderWithSidebar = (ui: React.ReactElement, options?: RenderOptions) =>
+    render(<SidebarProvider>{ui}</SidebarProvider>, options);
+
+  // Mock matchMedia before tests
+  beforeAll(() => {
+    global.matchMedia = jest.fn().mockImplementation((query) => ({
+      matches: query === "(max-width: 768px)",
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+    }));
+  });
+
+  afterAll(() => {
+    jest.restoreAllMocks(); // restore mocks after tests run
+  });
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -101,7 +122,7 @@ describe("PokeDex", () => {
 
     (useHasSelectedTypes as jest.Mock).mockReturnValue(false);
 
-    render(
+    renderWithSidebar(
       <PokeDex
         initialPokemonData={mockInitialPokemonData}
         initialPokemonTypes={mockInitialPokemonTypes}
@@ -114,14 +135,12 @@ describe("PokeDex", () => {
   });
 
   it("should render error state", async () => {
-    // Mock useQuery to simulate error
     (useQuery as jest.Mock).mockReturnValue({
       data: null,
       isLoading: false,
       isError: true,
     });
 
-    // Mock useInfiniteQuery to simulate error
     (useInfiniteQuery as jest.Mock).mockReturnValue({
       data: null,
       isLoading: false,
@@ -133,7 +152,7 @@ describe("PokeDex", () => {
 
     (useHasSelectedTypes as jest.Mock).mockReturnValue(false);
 
-    render(
+    renderWithSidebar(
       <PokeDex
         initialPokemonData={mockInitialPokemonData}
         initialPokemonTypes={mockInitialPokemonTypes}
@@ -164,7 +183,7 @@ describe("PokeDex", () => {
 
     (useHasSelectedTypes as jest.Mock).mockReturnValue(false);
 
-    render(
+    renderWithSidebar(
       <PokeDex
         initialPokemonData={mockInitialPokemonData}
         initialPokemonTypes={mockInitialPokemonTypes}
@@ -193,7 +212,7 @@ describe("PokeDex", () => {
 
     (useHasSelectedTypes as jest.Mock).mockReturnValue(false);
 
-    render(
+    renderWithSidebar(
       <PokeDex
         initialPokemonData={mockInitialPokemonData}
         initialPokemonTypes={mockInitialPokemonTypes}
@@ -226,7 +245,7 @@ describe("PokeDex", () => {
 
     (useHasSelectedTypes as jest.Mock).mockReturnValue(true);
 
-    render(
+    renderWithSidebar(
       <PokeDex
         initialPokemonData={mockInitialPokemonData}
         initialPokemonTypes={mockInitialPokemonTypes}

@@ -1,6 +1,7 @@
 "use client";
 
 import LoadMore from "@/components/LoadMore";
+import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { useHasSelectedTypes } from "@/stores/useFilterStore";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { PokeAPI } from "pokeapi-types";
@@ -22,6 +23,7 @@ export default function PokeDex({
   allPokemonNames,
 }: PokeDexProps) {
   const hasSelectedTypes = useHasSelectedTypes();
+  const { isMobile } = useSidebar();
 
   const {
     data: pokemonNames,
@@ -85,6 +87,7 @@ export default function PokeDex({
 
   return (
     <>
+      {isMobile && <SidebarTrigger className="p-6" />}
       <PokemonSidebar
         pokemonTypes={pokemonTypes}
         isLoadingTypes={isLoadingTypes}

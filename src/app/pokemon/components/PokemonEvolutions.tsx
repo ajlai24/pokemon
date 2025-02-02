@@ -5,6 +5,7 @@ import { getPokemonEvolutions } from "../services/pokemon";
 import { useQuery } from "@tanstack/react-query";
 import CenteredLoader from "@/components/CenteredLoader";
 import Link from "next/link";
+import React from "react";
 
 interface PokemonEvolutionsProps {
   name: PokeAPI.Pokemon["name"];
@@ -43,39 +44,46 @@ export default function PokemonEvolutions({ name }: PokemonEvolutionsProps) {
     queryFn: () => getPokemonEvolutions(name),
   });
 
-  if (isLoading) {
+  const EvolutionContent = () => {
+    if (isLoading) {
+      return (
+        <div className="col-span-full h-full">
+          <CenteredLoader />
+        </div>
+      );
+    }
+    if (isError) {
+      return <div>Failed to load evolutions</div>;
+    }
+    const evolutionChain = data?.chain;
+    const evolutions = evolutionChain
+      ? findEvolutionsAfter(evolutionChain, name)
+      : [];
+
     return (
-      <div className="col-span-full h-full">
-        <CenteredLoader />
+      <div>
+        {evolutions.length === 0 && <div>None</div>}
+        <div className="flex gap-2">
+          {evolutions.map((name, index) => (
+            <React.Fragment key={name}>
+              <Link
+                href={`/pokemon/${name}`}
+                className="capitalize text-blue-500"
+              >
+                {name}
+              </Link>
+              {index < evolutions.length - 1 && <span className="mx-2">→</span>}
+            </React.Fragment>
+          ))}
+        </div>
       </div>
     );
-  }
-  if (isError) {
-    return <div>Failed to load evolutions</div>;
-  }
-
-  const evolutionChain = data?.chain;
-
-  const evolutions = evolutionChain
-    ? findEvolutionsAfter(evolutionChain, name)
-    : [];
+  };
 
   return (
     <div>
       <h2 className="text-xl">Evolutions</h2>
-      {evolutions.length === 0 && <div>None</div>}
-
-      <div className="flex gap-2">
-        {evolutions.map((name) => (
-          <Link
-            href={`/pokemon/${name}`}
-            key={name}
-            className="capitalize text-blue-500"
-          >
-            {name}
-          </Link>
-        ))}
-      </div>
+      <EvolutionContent />
     </div>
   );
 }

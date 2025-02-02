@@ -173,7 +173,7 @@ export const AutoComplete = ({
                         event.stopPropagation();
                       }}
                       onSelect={() => handleSelectOption(option)}
-                      className="flex w-full items-center gap-2 cursor-pointer"
+                      className="flex w-full items-center gap-2 cursor-pointer capitalize"
                     >
                       {option.label}
                     </CommandItem>

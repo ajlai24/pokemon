@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import PokemonMoves from "./PokemonMoves";
+import { PokeAPI } from "pokeapi-types";
 
 describe("PokemonMoves", () => {
   const mockMoves = [
@@ -22,6 +23,16 @@ describe("PokemonMoves", () => {
   });
 
   it("displays the correct move name in each Badge", () => {
+    render(<PokemonMoves moves={mockMoves} />);
+
+    mockMoves.forEach(({ move: { name } }) => {
+      const badge = screen.getByText(name);
+      expect(badge).toBeInTheDocument();
+    });
+  });
+
+  it("renders None for no moves", () => {
+    const mockMoves: PokeAPI.PokemonMove[] = [];
     render(<PokemonMoves moves={mockMoves} />);
 
     mockMoves.forEach(({ move: { name } }) => {

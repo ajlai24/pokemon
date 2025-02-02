@@ -108,7 +108,11 @@ export default function PokemonTable({
               ))}
             </TableBody>
           </Table>
-          {isFetchingNextPage && <div className="text-xs">loading...</div>}
+          {isFetchingNextPage && (
+            <div className="text-xs">
+              <CenteredLoader />
+            </div>
+          )}
         </>
       )}
     </>

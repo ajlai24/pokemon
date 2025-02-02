@@ -13,7 +13,10 @@ jest.mock("@/components/CenteredLoader", () => ({
 }));
 
 describe("PokemonEvolutions", () => {
-  const mockName = "bulbasaur";
+  const mockSpecies = {
+    name: "bulbasaur",
+    url: "https://pokeapi.co/api/v2/pokemon-species/1/",
+  };
 
   const mockEvolutionsData = {
     chain: {
@@ -57,7 +60,7 @@ describe("PokemonEvolutions", () => {
 
     render(
       <QueryClientProvider client={createQueryClient()}>
-        <PokemonEvolutions name={mockName} />
+        <PokemonEvolutions species={mockSpecies} />
       </QueryClientProvider>
     );
 
@@ -71,7 +74,7 @@ describe("PokemonEvolutions", () => {
 
     render(
       <QueryClientProvider client={createQueryClient()}>
-        <PokemonEvolutions name={mockName} />
+        <PokemonEvolutions species={mockSpecies} />
       </QueryClientProvider>
     );
 
@@ -90,7 +93,7 @@ describe("PokemonEvolutions", () => {
 
     render(
       <QueryClientProvider client={createQueryClient()}>
-        <PokemonEvolutions name={mockName} />
+        <PokemonEvolutions species={mockSpecies} />
       </QueryClientProvider>
     );
 
@@ -102,7 +105,7 @@ describe("PokemonEvolutions", () => {
 
     render(
       <QueryClientProvider client={createQueryClient()}>
-        <PokemonEvolutions name={mockName} />
+        <PokemonEvolutions species={mockSpecies} />
       </QueryClientProvider>
     );
 
@@ -123,7 +126,7 @@ describe("PokemonEvolutions", () => {
 
     render(
       <QueryClientProvider client={createQueryClient()}>
-        <PokemonEvolutions name={mockName} />
+        <PokemonEvolutions species={mockSpecies} />
       </QueryClientProvider>
     );
 

@@ -111,9 +111,9 @@ export const fetchPokemonByTypes = async (
  * @returns {Promise<PokeAPI.EvolutionChain>} A promise that resolves an entire evolution chain of a Pokemon
  */
 export const getPokemonEvolutions = async (
-  name: string
+  species: PokeAPI.Pokemon["species"]
 ): Promise<PokeAPI.EvolutionChain> => {
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${name}`);
+  const res = await fetch(species.url);
   if (!res.ok) {
     throw new Error("Failed to fetch Pokemon species details");
   }

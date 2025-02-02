@@ -21,7 +21,8 @@ export default function PokemonDetails({
   showBackNav = false,
 }: PokemonDetailsProps) {
   const router = useRouter();
-  const { id, height, moves, name, sprites, stats, types, weight } = details;
+  const { id, height, moves, name, species, sprites, stats, types, weight } =
+    details;
 
   return (
     <div className="flex flex-col gap-4">
@@ -42,7 +43,7 @@ export default function PokemonDetails({
       <PokemonStatsTable id={id} weight={weight} height={height} />
       <PokemonMoves moves={moves} />
       <PokemonStatsDetails stats={stats} />
-      <PokemonEvolutions name={name} />
+      <PokemonEvolutions species={species} />
       <PokemonWeaknesses types={types} />
     </div>
   );

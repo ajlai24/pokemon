@@ -8,7 +8,7 @@ import Link from "next/link";
 import React from "react";
 
 interface PokemonEvolutionsProps {
-  name: PokeAPI.Pokemon["name"];
+  species: PokeAPI.Pokemon["species"];
 }
 
 function findEvolutionsAfter(chain: PokeAPI.ChainLink, name: string) {
@@ -38,10 +38,10 @@ function findEvolutionsAfter(chain: PokeAPI.ChainLink, name: string) {
   return result;
 }
 
-export default function PokemonEvolutions({ name }: PokemonEvolutionsProps) {
+export default function PokemonEvolutions({ species }: PokemonEvolutionsProps) {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["pokemonEvolutions", name],
-    queryFn: () => getPokemonEvolutions(name),
+    queryKey: ["pokemonEvolutions", species],
+    queryFn: () => getPokemonEvolutions(species),
   });
 
   const EvolutionContent = () => {
@@ -57,7 +57,7 @@ export default function PokemonEvolutions({ name }: PokemonEvolutionsProps) {
     }
     const evolutionChain = data?.chain;
     const evolutions = evolutionChain
-      ? findEvolutionsAfter(evolutionChain, name)
+      ? findEvolutionsAfter(evolutionChain, species.name)
       : [];
 
     return (
